@@ -2162,10 +2162,6 @@ DWORD_PTR InterpreterCodeManager::CallFunclet(OBJECTREF throwable, void* pHandle
 {
     Thread *pThread = GetThread();
     InterpThreadContext *threadContext = pThread->GetInterpThreadContext();
-    if (threadContext == nullptr || threadContext->pStackStart == nullptr)
-    {
-        COMPlusThrow(kOutOfMemoryException);
-    }
     int8_t *sp = threadContext->pStackPointer;
 
     // This construct ensures that the InterpreterFrame is always stored at a higher address than the
@@ -2671,8 +2667,21 @@ GenericParamContextType InterpreterCodeManager::GetParamContextType(PREGDISPLAY 
 
 size_t InterpreterCodeManager::GetFunctionSize(GCInfoToken gcInfoToken)
 {
-    // Interpreter-TODO: Implement this
-    return 0;
+    CONTRACTL {
+        NOTHROW;
+        GC_NOTRIGGER;
+        SUPPORTS_DAC;
+    } CONTRACTL_END;
+
+    InterpreterGcInfoDecoder gcInfoDecoder(
+            gcInfoToken,
+            DECODE_CODE_LENGTH
+            );
+
+    UINT32 codeLength = gcInfoDecoder.GetCodeLength();
+    _ASSERTE( codeLength > 0 );
+
+    return codeLength;
 }
 
 #endif // FEATURE_INTERPRETER

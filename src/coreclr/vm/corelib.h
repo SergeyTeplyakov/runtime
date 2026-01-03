@@ -109,7 +109,7 @@ DEFINE_METHOD(ARG_ITERATOR,         CTOR2,                  .ctor,              
 DEFINE_CLASS(ARGUMENT_HANDLE,       System,                 RuntimeArgumentHandle)
 
 DEFINE_CLASS(ARRAY,                 System,                 Array)
-DEFINE_METHOD(ARRAY,                CREATEINSTANCEMDARRAY,  CreateInstanceMDArray,      SM_IntPtr_UInt_VoidPtr_RetObj)
+DEFINE_METHOD(ARRAY,                CTOR,                   Ctor,                       NoSig)
 
 DEFINE_CLASS(ARRAY_WITH_OFFSET,     Interop,                ArrayWithOffset)
 DEFINE_FIELD(ARRAY_WITH_OFFSET,     M_ARRAY,                m_array)
@@ -967,11 +967,6 @@ DEFINE_METHOD(STRING_BUILDER,       INTERNAL_COPY,          InternalCopy,       
 DEFINE_METHOD(STRING_BUILDER,       REPLACE_BUFFER_INTERNAL,ReplaceBufferInternal,      IM_PtrChar_Int_RetVoid)
 DEFINE_METHOD(STRING_BUILDER,       REPLACE_BUFFER_ANSI_INTERNAL,ReplaceBufferAnsiInternal, IM_PtrSByt_Int_RetVoid)
 
-DEFINE_CLASS_U(Threading,              SynchronizationContext, SynchronizationContextObject)
-DEFINE_FIELD_U(_requireWaitNotification, SynchronizationContextObject, _requireWaitNotification)
-DEFINE_CLASS(SYNCHRONIZATION_CONTEXT,    Threading,              SynchronizationContext)
-DEFINE_METHOD(SYNCHRONIZATION_CONTEXT,  INVOKE_WAIT_METHOD_HELPER, InvokeWaitMethodHelper, SM_SyncCtx_ArrIntPtr_Bool_Int_RetInt)
-
 #ifdef DEBUG
 DEFINE_CLASS(STACKCRAWMARK,         Threading,       StackCrawlMark)
 #endif
@@ -994,6 +989,7 @@ DEFINE_CLASS(DIRECTONTHREADLOCALDATA, Threading, Thread+DirectOnThreadLocalData)
 DEFINE_CLASS(THREAD,                Threading,              Thread)
 DEFINE_METHOD(THREAD,               START_CALLBACK,                          StartCallback,                               IM_RetVoid)
 DEFINE_METHOD(THREAD,               POLLGC,                                  PollGC,                               NoSig)
+DEFINE_METHOD(THREAD,               ON_THREAD_EXITING,                       OnThreadExiting,                      IM_RetVoid)
 
 #ifdef FEATURE_OBJCMARSHAL
 DEFINE_CLASS(AUTORELEASEPOOL,       Threading,              AutoreleasePool)
