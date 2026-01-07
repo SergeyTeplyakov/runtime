@@ -26,7 +26,7 @@ namespace System.IO.Enumeration
         private readonly string _originalRootDirectory;
         private readonly string _rootDirectory;
         private readonly EnumerationOptions _options;
-        private protected readonly string? _expression;
+        private readonly string? _expression;
 
         private readonly object _lock = new object();
 
